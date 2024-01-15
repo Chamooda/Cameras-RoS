@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/asad/Camera_Overall/src/Cameras/src/publisher_node.cpp
+ros/ros.h
+/home/asad/Camera_Overall/src/Cameras/src/ros/ros.h
+std_msgs/String.h
+/home/asad/Camera_Overall/src/Cameras/src/std_msgs/String.h
+

@@ -1,0 +1,8 @@
+prefix=/home/asad/Camera_Overall/devel
+
+Name: Cameras
+Description: Description of Cameras
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

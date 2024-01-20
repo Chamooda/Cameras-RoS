@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
                              std_msgs 
                              genmsg)
 
-include_directories($(catkin_INCLUDE_DIRS))
+#include_directories($(catkin_INCLUDE_DIRS))
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -69,10 +69,10 @@ include_directories($(catkin_INCLUDE_DIRS))
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-   DEPENDENCIES
-   std_msgs  # Or other packages containing msgs
- )
+#generate_messages(
+  # DEPENDENCIES
+ #  std_msgs  # Or other packages containing msgs
+ #  )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -118,7 +118,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-# ${catkin_INCLUDE_DIRS}
+ ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -135,6 +135,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(publisher_node src/publisher_node.cpp)
+add_executable(subscriber_node src/Subscriber_Node1.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -145,11 +147,14 @@ add_executable(publisher_node src/publisher_node.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(publisher_node ${publisher_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(subscriber_node ${subscriber_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(publisher_node
-   ${catkin_LIBRARIES}
- )
+target_link_libraries(publisher_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(subscriber_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##

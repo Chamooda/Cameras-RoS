@@ -1,2 +1,2 @@
-Cameras
+Cameras:dual_camera
 -DCATKIN_DEVEL_PREFIX=/home/asad/Camera_Overall/devel -DCMAKE_INSTALL_PREFIX=/home/asad/Camera_Overall/install -G Unix Makefiles

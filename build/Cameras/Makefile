@@ -56,17 +56,60 @@ CMAKE_BINARY_DIR = /home/asad/Camera_Overall/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target install
 install: preinstall
@@ -80,60 +123,17 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,229 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+Cameras/CMakeFiles/publisher_node.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/publisher_node.dir/rule
+.PHONY : Cameras/CMakeFiles/publisher_node.dir/rule
 
 # Convenience name for target.
-rosgraph_msgs_generate_messages_py: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+publisher_node: Cameras/CMakeFiles/publisher_node.dir/rule
 
-.PHONY : rosgraph_msgs_generate_messages_py
+.PHONY : publisher_node
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages.dir/rule
-
-# Convenience name for target.
-Cameras_generate_messages: Cameras/CMakeFiles/Cameras_generate_messages.dir/rule
-
-.PHONY : Cameras_generate_messages
-
-# fast build rule for target.
-Cameras_generate_messages/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages.dir/build
-.PHONY : Cameras_generate_messages/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-Cameras_generate_messages_lisp: Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/rule
-
-.PHONY : Cameras_generate_messages_lisp
-
-# fast build rule for target.
-Cameras_generate_messages_lisp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages_lisp.dir/build
-.PHONY : Cameras_generate_messages_lisp/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_nodejs: Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_eus: Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_py: Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_py.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_lisp: Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/Cameras_gennodejs.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_gennodejs.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_gennodejs.dir/rule
-
-# Convenience name for target.
-Cameras_gennodejs: Cameras/CMakeFiles/Cameras_gennodejs.dir/rule
-
-.PHONY : Cameras_gennodejs
-
-# fast build rule for target.
-Cameras_gennodejs/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_gennodejs.dir/build.make Cameras/CMakeFiles/Cameras_gennodejs.dir/build
-.PHONY : Cameras_gennodejs/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_nodejs: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_eus: Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-.PHONY : roscpp_generate_messages_eus
-
-# fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages_py.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages_py.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages_py.dir/rule
-
-# Convenience name for target.
-Cameras_generate_messages_py: Cameras/CMakeFiles/Cameras_generate_messages_py.dir/rule
-
-.PHONY : Cameras_generate_messages_py
-
-# fast build rule for target.
-Cameras_generate_messages_py/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages_py.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages_py.dir/build
-.PHONY : Cameras_generate_messages_py/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_nodejs: Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
+publisher_node/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/publisher_node.dir/build.make Cameras/CMakeFiles/publisher_node.dir/build
+.PHONY : publisher_node/fast
 
 # Convenience name for target.
 Cameras/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
@@ -408,49 +198,154 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/rule
+Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-Cameras_generate_messages_cpp: Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/rule
+std_msgs_generate_messages_nodejs: Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : Cameras_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-Cameras_generate_messages_cpp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages_cpp.dir/build
-.PHONY : Cameras_generate_messages_cpp/fast
+std_msgs_generate_messages_nodejs/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_genlisp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_genlisp.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_genlisp.dir/rule
+Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-Cameras_genlisp: Cameras/CMakeFiles/Cameras_genlisp.dir/rule
+roscpp_generate_messages_cpp: Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
-.PHONY : Cameras_genlisp
+.PHONY : roscpp_generate_messages_cpp
 
 # fast build rule for target.
-Cameras_genlisp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_genlisp.dir/build.make Cameras/CMakeFiles/Cameras_genlisp.dir/build
-.PHONY : Cameras_genlisp/fast
+roscpp_generate_messages_cpp/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_gencpp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_gencpp.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_gencpp.dir/rule
+Cameras/CMakeFiles/subscriber_node.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/subscriber_node.dir/rule
+.PHONY : Cameras/CMakeFiles/subscriber_node.dir/rule
 
 # Convenience name for target.
-Cameras_gencpp: Cameras/CMakeFiles/Cameras_gencpp.dir/rule
+subscriber_node: Cameras/CMakeFiles/subscriber_node.dir/rule
 
-.PHONY : Cameras_gencpp
+.PHONY : subscriber_node
 
 # fast build rule for target.
-Cameras_gencpp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_gencpp.dir/build.make Cameras/CMakeFiles/Cameras_gencpp.dir/build
-.PHONY : Cameras_gencpp/fast
+subscriber_node/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/subscriber_node.dir/build.make Cameras/CMakeFiles/subscriber_node.dir/build
+.PHONY : subscriber_node/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_eus: Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_nodejs: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_lisp: Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_py: Cameras/CMakeFiles/roscpp_generate_messages_py.dir/rule
+
+.PHONY : roscpp_generate_messages_py
+
+# fast build rule for target.
+roscpp_generate_messages_py/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_py.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_eus: Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make Cameras/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_nodejs: Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+# Convenience name for target.
+Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_cpp: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
 Cameras/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
@@ -468,36 +363,6 @@ std_msgs_generate_messages_cpp/fast:
 .PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/publisher_node.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/publisher_node.dir/rule
-.PHONY : Cameras/CMakeFiles/publisher_node.dir/rule
-
-# Convenience name for target.
-publisher_node: Cameras/CMakeFiles/publisher_node.dir/rule
-
-.PHONY : publisher_node
-
-# fast build rule for target.
-publisher_node/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/publisher_node.dir/build.make Cameras/CMakeFiles/publisher_node.dir/build
-.PHONY : publisher_node/fast
-
-# Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-Cameras_generate_messages_eus: Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/rule
-
-.PHONY : Cameras_generate_messages_eus
-
-# fast build rule for target.
-Cameras_generate_messages_eus/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages_eus.dir/build
-.PHONY : Cameras_generate_messages_eus/fast
-
-# Convenience name for target.
 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
 	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
 .PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
@@ -513,64 +378,76 @@ rosgraph_msgs_generate_messages_eus/fast:
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_geneus.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_geneus.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_geneus.dir/rule
+Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-Cameras_geneus: Cameras/CMakeFiles/Cameras_geneus.dir/rule
+rosgraph_msgs_generate_messages_lisp: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : Cameras_geneus
+.PHONY : rosgraph_msgs_generate_messages_lisp
 
 # fast build rule for target.
-Cameras_geneus/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_geneus.dir/build.make Cameras/CMakeFiles/Cameras_geneus.dir/build
-.PHONY : Cameras_geneus/fast
+rosgraph_msgs_generate_messages_lisp/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/rule
+Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-Cameras_generate_messages_nodejs: Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/rule
+roscpp_generate_messages_lisp: Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
-.PHONY : Cameras_generate_messages_nodejs
+.PHONY : roscpp_generate_messages_lisp
 
 # fast build rule for target.
-Cameras_generate_messages_nodejs/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/build.make Cameras/CMakeFiles/Cameras_generate_messages_nodejs.dir/build
-.PHONY : Cameras_generate_messages_nodejs/fast
+roscpp_generate_messages_lisp/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make Cameras/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
 
 # Convenience name for target.
-Cameras/CMakeFiles/Cameras_genpy.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/Cameras_genpy.dir/rule
-.PHONY : Cameras/CMakeFiles/Cameras_genpy.dir/rule
+Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-Cameras_genpy: Cameras/CMakeFiles/Cameras_genpy.dir/rule
+rosgraph_msgs_generate_messages_py: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
-.PHONY : Cameras_genpy
+.PHONY : rosgraph_msgs_generate_messages_py
 
 # fast build rule for target.
-Cameras_genpy/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/Cameras_genpy.dir/build.make Cameras/CMakeFiles/Cameras_genpy.dir/build
-.PHONY : Cameras_genpy/fast
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
 
-# Convenience name for target.
-Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f CMakeFiles/Makefile2 Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+src/Subscriber_Node1.o: src/Subscriber_Node1.cpp.o
 
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : src/Subscriber_Node1.o
 
-.PHONY : rosgraph_msgs_generate_messages_cpp
+# target to build an object file
+src/Subscriber_Node1.cpp.o:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/subscriber_node.dir/build.make Cameras/CMakeFiles/subscriber_node.dir/src/Subscriber_Node1.cpp.o
+.PHONY : src/Subscriber_Node1.cpp.o
 
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make Cameras/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+src/Subscriber_Node1.i: src/Subscriber_Node1.cpp.i
+
+.PHONY : src/Subscriber_Node1.i
+
+# target to preprocess a source file
+src/Subscriber_Node1.cpp.i:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/subscriber_node.dir/build.make Cameras/CMakeFiles/subscriber_node.dir/src/Subscriber_Node1.cpp.i
+.PHONY : src/Subscriber_Node1.cpp.i
+
+src/Subscriber_Node1.s: src/Subscriber_Node1.cpp.s
+
+.PHONY : src/Subscriber_Node1.s
+
+# target to generate assembly for a file
+src/Subscriber_Node1.cpp.s:
+	cd /home/asad/Camera_Overall/build && $(MAKE) -f Cameras/CMakeFiles/subscriber_node.dir/build.make Cameras/CMakeFiles/subscriber_node.dir/src/Subscriber_Node1.cpp.s
+.PHONY : src/Subscriber_Node1.cpp.s
 
 src/publisher_node.o: src/publisher_node.cpp.o
 
@@ -605,40 +482,33 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... Cameras_generate_messages"
-	@echo "... Cameras_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... std_msgs_generate_messages_eus"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... Cameras_gennodejs"
-	@echo "... rosgraph_msgs_generate_messages_nodejs"
-	@echo "... rebuild_cache"
-	@echo "... roscpp_generate_messages_eus"
-	@echo "... Cameras_generate_messages_py"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_nodejs"
-	@echo "... std_msgs_generate_messages_py"
-	@echo "... Cameras_generate_messages_cpp"
-	@echo "... Cameras_genlisp"
-	@echo "... Cameras_gencpp"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... publisher_node"
-	@echo "... Cameras_generate_messages_eus"
 	@echo "... install/local"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... Cameras_geneus"
-	@echo "... Cameras_generate_messages_nodejs"
-	@echo "... Cameras_genpy"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... test"
+	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... publisher_node"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... roscpp_generate_messages_cpp"
+	@echo "... subscriber_node"
+	@echo "... roscpp_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... list_install_components"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_py"
+	@echo "... install"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... install/strip"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... src/Subscriber_Node1.o"
+	@echo "... src/Subscriber_Node1.i"
+	@echo "... src/Subscriber_Node1.s"
 	@echo "... src/publisher_node.o"
 	@echo "... src/publisher_node.i"
 	@echo "... src/publisher_node.s"

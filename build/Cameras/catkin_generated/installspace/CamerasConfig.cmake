@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/asad/Camera_Overall/install/lib;/home/asad/Camera_Overall/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/asad/Camera_Overall/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -177,7 +177,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(Cameras_EXPORTED_TARGETS "Cameras_generate_messages_cpp;Cameras_generate_messages_eus;Cameras_generate_messages_lisp;Cameras_generate_messages_nodejs;Cameras_generate_messages_py")
+set(Cameras_EXPORTED_TARGETS "")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${Cameras_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -214,7 +214,7 @@ foreach(depend ${depends})
   _list_append_deduplicate(Cameras_EXPORTED_TARGETS ${${Cameras_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "Cameras-msg-extras.cmake")
+set(pkg_cfg_extras "")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${Cameras_DIR}/${extra})

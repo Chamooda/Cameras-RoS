@@ -9,10 +9,14 @@ project(Cameras)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
                              roscpp
-                             rospy 
-                             std_msgs 
-                             genmsg)
+                             rospy
+                             std_msgs
+                             genmsg
+                             sensor_msgs
+                             cv_bridge
+                             image_transport)
 
+find_package(OpenCV REQUIRED)
 #include_directories($(catkin_INCLUDE_DIRS))
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -104,11 +108,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES Cameras
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
-)
+  CATKIN_DEPENDS roscpp sensor_msgs cv_bridge image_transport
+  )
 
 ###########
 ## Build ##
@@ -119,6 +120,7 @@ catkin_package(
 include_directories(
 # include
  ${catkin_INCLUDE_DIRS}
+ ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -135,7 +137,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(publisher_node src/publisher_node.cpp)
-add_executable(subscriber_node src/Subscriber_Node1.cpp)
+add_executable(Subscriber_Node1 src/Subscriber_Node1.cpp)
+add_executable(Subscriber_Node2 src/Subscriber_Node2.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -147,14 +150,16 @@ add_executable(subscriber_node src/Subscriber_Node1.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(publisher_node ${publisher_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(subscriber_node ${subscriber_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(Subscriber_Node1 ${subscriber_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(Subscriber_Node2 ${subscriber_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(publisher_node
   ${catkin_LIBRARIES}
 )
-target_link_libraries(subscriber_node ${catkin_LIBRARIES})
+target_link_libraries(Subscriber_Node1 ${catkin_LIBRARIES})
+target_link_libraries(Subscriber_Node2 ${catkin_LIBRARIES})
 
 #############
 ## Install ##

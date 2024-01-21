@@ -60,4 +60,4 @@ int main()
 }
 
 //g++ -Wall -g -std=c++11 -pthread -I. Controller.cpp -o Control
-//  g++ Cameras.cpp -o CAM -pthread $(pkg-config --cflags --libs opencv4)
+//g++ Cameras.cpp -o CAM -pthread $(pkg-config --cflags --libs opencv4)

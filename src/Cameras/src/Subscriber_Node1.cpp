@@ -1,20 +1,53 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include <sstream>
+#include <sensor_msgs/Image.h>
+#include <cv_bridge/cv_bridge.h>
+#include <opencv2/opencv.hpp>
 
-void writeMsgToLog(const std_msgs::String::ConstPtr& msg)
-{
-    ROS_INFO("MESSage: %s", msg->data.c_str());
-}
-
-
-int main(int argc, char **argv)
-{
-    ros::init(argc, argv, "Subscriber");
+int main(int argc, char** argv) {
+    ros::init(argc, argv, "video_publisher");
     ros::NodeHandle nh;
 
-    ros::Subscriber topic_sub = nh.subscribe("Cam1",1000, writeMsgToLog);
+    // Open the first camera (camera index 0)
+    cv::VideoCapture cap1(0);
+    if (!cap1.isOpened()) {
+        ROS_ERROR("Error opening camera 0.");
+        return -1;
+    }
 
-    ros::spin();
+    // Open the second camera (camera index 1)
+    cv::VideoCapture cap2(2);
+    if (!cap2.isOpened()) {
+        ROS_ERROR("Error opening camera 1.");
+        return -1;
+    }
 
+    ros::Publisher pub1 = nh.advertise<sensor_msgs::Image>("video_stream1", 1);
+    ros::Publisher pub2 = nh.advertise<sensor_msgs::Image>("video_stream2", 1);
+
+    ros::Rate loop_rate(24);  // Set loop rate to 30 Hz
+
+    while (ros::ok()) {
+        // Capture frame from camera 1
+        cv::Mat frame1;
+        cap1 >> frame1;
+
+        // Capture frame from camera 2
+        cv::Mat frame2;
+        cap2 >> frame2;
+
+        // Convert OpenCV images to ROS messages
+        sensor_msgs::ImagePtr msg1 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame1).toImageMsg();
+        sensor_msgs::ImagePtr msg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame2).toImageMsg();
+
+        // Publish the images to different topics
+        pub1.publish(msg1);
+        pub2.publish(msg2);
+
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+
+    return 0;
 }

@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
 
     ros::Rate loop_rate(40);
 
+
     while (ros::ok()) {
        
         cv::Mat frame1;
